@@ -27,3 +27,11 @@ const projectModule = (() => {
 
   return { createProject };
 })();
+
+function removeProject(projects, project) {
+  projects = projects.filter((element) => element.id !== project.id);
+  localStorage.toDoProjects = JSON.stringify(projects);
+}
+
+export default projectModule;
+export { Project, projectModule, removeProject };
