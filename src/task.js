@@ -25,3 +25,15 @@ function removeTodo(projects, project, todoId) {
   project.todos = project.todos.filter((x) => x.id !== todoId);
   localStorage.toDoProjects = JSON.stringify(projects);
 }
+
+function updateStatus(projects, project, id) {
+  for (let i = 0; i < project.todos.length; i += 1) {
+    if (project.todos[i].id === id && project.todos[i].status === true) {
+      project.todos[i].status = false;
+    } else if (project.todos[i].id === id && project.todos[i].status === false) {
+      project.todos[i].status = true;
+    }
+  }
+
+  localStorage.toDoProjects = JSON.stringify(projects);
+}
