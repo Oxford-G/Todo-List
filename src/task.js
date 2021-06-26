@@ -20,3 +20,8 @@ class Todo {
     return this;
   }
 }
+
+function removeTodo(projects, project, todoId) {
+  project.todos = project.todos.filter((x) => x.id !== todoId);
+  localStorage.toDoProjects = JSON.stringify(projects);
+}
