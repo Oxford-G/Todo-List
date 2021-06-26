@@ -137,3 +137,111 @@ function displayTodoForm() {
   cancelTodoBtn.innerHTML = 'Cancel';
   cancelTodoBtn.addEventListener('click', displayProjects);
 }
+
+function displayTodos() {
+  const selectedProjectId = localStorage.getItem('selectedProjectId');
+  const projects = getProjects();
+  const project = projects.find((element) => element.id === selectedProjectId);
+  const projectContainer = document.querySelector('.project-container');
+  clearContent(projectContainer);
+  if (project) {
+    const projectDetails = projectContainer.appendChild(document.createElement('p'));
+    projectDetails.setAttribute('class', 'd-flex justify-content-around active');
+
+    const projectName = projectDetails.appendChild(document.createElement('span'));
+    projectName.innerHTML = project.name;
+    projectName.setAttribute('class', '');
+
+    project.todos.forEach((item) => {
+      const itemCont = projectContainer.appendChild(document.createElement('div'));
+      itemCont.setAttribute('class', `d-flex justify-content-between ${item.id}`);
+      const pTag = itemCont.appendChild(document.createElement('p'));
+
+      const todoCheckBox = pTag.appendChild(document.createElement('input'));
+      todoCheckBox.setAttribute('class', 'd-inline-block mx-3 ');
+      todoCheckBox.setAttribute('type', 'checkbox');
+      todoCheckBox.setAttribute('id', item.id);
+
+      const todoLabel = pTag.appendChild(document.createElement('label'));
+      todoLabel.setAttribute('class', 'd-inline-block ');
+      // todoLabel.setAttribute('for', item.id);
+      todoLabel.innerHTML = item.title;
+
+      const span = itemCont.appendChild(document.createElement('span'));
+      span.setAttribute('class', 'd-inline-block');
+      const editBtn = span.appendChild(document.createElement('button'));
+      editBtn.setAttribute('class', 'bg-info btn mr-2');
+      editBtn.innerHTML = 'EditTodo';
+      editBtn.addEventListener('click', () => {
+        clearContent(projectContainer);
+        displayTodoForm();
+        document.querySelector('.todo-title').value = item.title;
+        document.querySelector('.todo-date').value = item.date;
+        document.querySelector('.priority-select').value = item.priority;
+        document.querySelector('.todo-description').value = item.description;
+        const projectSelect = document.querySelector('.project-select');
+        const projectSelectLabel = document.querySelector('.project-select-label');
+        const todoForm = document.querySelector('.todo-form');
+        todoForm.removeChild(projectSelect);
+        todoForm.removeChild(projectSelectLabel);
+
+        const buttonsContainer = document.querySelector('.todo-buttons');
+        const createButton = document.querySelector('.create-todo');
+        buttonsContainer.removeChild(createButton);
+
+        const cancelTodoButton = document.querySelector('.cancel-todo');
+
+        const updateTodoBtn = buttonsContainer.insertBefore(document.createElement('button'), cancelTodoButton);
+        updateTodoBtn.setAttribute('class', 'btn btn-info');
+        updateTodoBtn.innerHTML = 'Save Changes';
+        updateTodoBtn.addEventListener('click', () => {
+          const title = document.querySelector('.todo-title').value;
+          const date = document.querySelector('.todo-date').value;
+          const description = document.querySelector('.todo-description').value;
+          const priority = document.querySelector('.priority-select').value;
+          item = item.updateTodo(title, date, description, priority);
+          localStorage.toDoProjects = JSON.stringify(projects);
+          displayTodos();
+        });
+      });
+
+      const removeBtn = span.appendChild(document.createElement('button'));
+      removeBtn.setAttribute('class', 'bg-danger btn');
+      removeBtn.innerHTML = 'Remove';
+      removeBtn.addEventListener('click', (e) => {
+        projectContainer.removeChild(e.target.parentNode.parentNode);
+        removeTodo(projects, project, item.id);
+      });
+
+      if (item.status) {
+        todoCheckBox.checked = true;
+        todoLabel.classList.add('done-task');
+      }
+
+      todoCheckBox.addEventListener('click', () => {
+        if (todoCheckBox.checked) {
+          todoLabel.classList.add('done-task');
+        } else {
+          todoLabel.classList.remove('done-task');
+        }
+        updateStatus(projects, project, item.id);
+      });
+    });
+
+    const deleteProjectBtn = projectContainer.appendChild(document.createElement('button'));
+    deleteProjectBtn.setAttribute('class', 'btn btn-danger remove-project-btn');
+    deleteProjectBtn.innerHTML = 'Delete Project';
+    deleteProjectBtn.addEventListener('click', () => {
+      if (project.name.toLowerCase() !== 'inbox') {
+        const removed = document.getElementById(project.id);
+
+        const projectList = document.querySelector('.project-list');
+        clearContent(projectContainer);
+        localStorage.removeItem('selectedProjectId');
+
+        projectList.removeChild(removed);
+        removeProject(projects, project);
+      }
+    });
+  }
+}
