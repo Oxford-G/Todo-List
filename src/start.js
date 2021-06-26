@@ -23,3 +23,29 @@ function getProjects() {
   }
   return predefinedProjects;
 }
+
+function clearContent(element) {
+  element.textContent = '';
+}
+
+function displayProjects() {
+  const projectsList = document.querySelector('.project-list');
+  clearContent(projectsList);
+  let selectedProjectId = localStorage.getItem('selectedProjectId');
+  const projects = getProjects();
+
+  projects.forEach((project) => {
+    const projectItem = projectsList.appendChild(document.createElement('h6'));
+    projectItem.textContent = project.name;
+    projectItem.setAttribute('id', project.id);
+    projectItem.addEventListener('click', () => {
+      selectedProjectId = project.id;
+      localStorage.selectedProjectId = project.id;
+
+      // eslint-disable-next-line no-use-before-define
+      displayTodos(selectedProjectId);
+    });
+  });
+  // eslint-disable-next-line no-use-before-define
+  displayTodos(selectedProjectId);
+}
