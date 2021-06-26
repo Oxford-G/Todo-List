@@ -11,3 +11,12 @@ class Todo {
     this.id = Date.now().toString();
     this.status = false;
   }
+
+  updateTodo(title, date, description, priority) {
+    this.title = title;
+    this.date = date;
+    this.description = description;
+    this.priority = priority;
+    return this;
+  }
+}
