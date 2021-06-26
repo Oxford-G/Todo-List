@@ -1,1 +1,1 @@
-{"version":3,"sources":["webpack://todo-list/./src/index.js"],"names":[],"mappings":";;;;;AAAA","file":"main.js","sourcesContent":["console.log(\"Hello webpack!\")\n"],"sourceRoot":""}
+{"version":3,"sources":["webpack://todo-list/./src/index.js"],"names":["console","log"],"mappings":"AAAAA,QAAQC,IAAI","file":"main.js","sourcesContent":["console.log(\"Hello webpack!\")\n"],"sourceRoot":""}
