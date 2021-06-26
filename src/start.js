@@ -287,3 +287,49 @@ function start() {
 
   displayProjects();
 }
+
+function displayProjectForm() {
+  const formContainer = document.querySelector('.form-container');
+  clearContent(formContainer);
+
+  const projectForm = document.createElement('form');
+
+  projectForm.setAttribute('class', 'project-form mx-auto mt-5');
+
+  const nameLabel = document.createElement('label');
+  nameLabel.setAttribute('class', 'form-label');
+  nameLabel.innerHTML = 'Name';
+
+  const nameInput = document.createElement('input');
+  nameInput.setAttribute('class', 'form-control');
+  nameInput.setAttribute('type', 'text');
+  nameInput.setAttribute('id', 'project-name');
+  nameInput.setAttribute('placeholder', '   Project name');
+
+  const btnContainer = document.createElement('div');
+
+  btnContainer.setAttribute('class', 'btn-container d-flex justify-content-between mx-auto');
+  const submitBtn = document.createElement('button');
+
+  submitBtn.setAttribute('class', 'btn text-light bg-primary mt-2 mr-0 submit-btn');
+  submitBtn.innerHTML = 'Submit';
+
+  const cancelBtn = document.createElement('button');
+
+  cancelBtn.setAttribute('class', 'btn text-light bg-danger mt-2 mr-0 cancel-btn ');
+  cancelBtn.innerHTML = 'Cancel';
+
+  formContainer.appendChild(projectForm);
+  projectForm.appendChild(nameLabel);
+  projectForm.appendChild(nameInput);
+  formContainer.appendChild(btnContainer);
+
+  btnContainer.appendChild(submitBtn);
+  btnContainer.appendChild(cancelBtn);
+  cancelBtn.addEventListener('click', start);
+  submitBtn.addEventListener('click', () => {
+    project.createProject(nameInput);
+  });
+}
+
+export { start, getProjects };
