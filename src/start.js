@@ -288,7 +288,7 @@ function start() {
   displayProjects();
 }
 
-function displayProjectForm() {
+const displayProjectForm = () => {
   const formContainer = document.querySelector('.form-container');
   clearContent(formContainer);
 
@@ -330,6 +330,6 @@ function displayProjectForm() {
   submitBtn.addEventListener('click', () => {
     project.createProject(nameInput);
   });
-}
+};
 
 export { start, getProjects };

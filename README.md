@@ -27,6 +27,7 @@ Text editor Get a browser like chrome or firefox in their recent versions Node.j
 
 - Install required dependencies `npm install`
 - Run `npm start` to start the local webserver
+- On your browser, you can run the project on `http://localhost:8080/`
 
 ## Usage
 
