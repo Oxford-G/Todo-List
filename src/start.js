@@ -22,11 +22,11 @@ const getProjects = () => {
     return projects;
   }
   return predefinedProjects;
-}
+};
 
 const clearContent = (element) => {
   element.textContent = '';
-}
+};
 
 const displayProjects = () => {
   const projectsList = document.querySelector('.project-list');
@@ -48,7 +48,7 @@ const displayProjects = () => {
   });
   // eslint-disable-next-line no-use-before-define
   displayTodos(selectedProjectId);
-}
+};
 
 const displayTodoForm = () => {
   const projectContainer = document.querySelector('.project-container');
@@ -136,7 +136,7 @@ const displayTodoForm = () => {
   cancelTodoBtn.setAttribute('class', 'btn btn-danger cancel-todo');
   cancelTodoBtn.innerHTML = 'Cancel';
   cancelTodoBtn.addEventListener('click', displayProjects);
-}
+};
 
 const displayTodos = () => {
   const selectedProjectId = localStorage.getItem('selectedProjectId');
@@ -244,7 +244,7 @@ const displayTodos = () => {
       }
     });
   }
-}
+};
 
 const start = () => {
   clearContent(container);
@@ -286,7 +286,7 @@ const start = () => {
   });
 
   displayProjects();
-}
+};
 
 const displayProjectForm = () => {
   const formContainer = document.querySelector('.form-container');

@@ -6,6 +6,6 @@ const initializer = () => {
   displayNav();
   start();
   displayFooter();
-}
+};
 
 initializer();
