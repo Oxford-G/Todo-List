@@ -9,7 +9,7 @@ import {
 const container = document.getElementById('content');
 
 const predefinedProjects = [new Project('Default'), new Project('Yesterday'), new Project('Today'), new Project('Tomorrow')];
-function getProjects() {
+const getProjects = () => {
   if (localStorage.getItem('toDoProjects')) {
     const projects = JSON.parse(localStorage.getItem('toDoProjects'));
     for (let i = 0; i < projects.length; i += 1) {
@@ -24,11 +24,11 @@ function getProjects() {
   return predefinedProjects;
 }
 
-function clearContent(element) {
+const clearContent = (element) => {
   element.textContent = '';
 }
 
-function displayProjects() {
+const displayProjects = () => {
   const projectsList = document.querySelector('.project-list');
   clearContent(projectsList);
   let selectedProjectId = localStorage.getItem('selectedProjectId');
@@ -50,7 +50,7 @@ function displayProjects() {
   displayTodos(selectedProjectId);
 }
 
-function displayTodoForm() {
+const displayTodoForm = () => {
   const projectContainer = document.querySelector('.project-container');
   clearContent(projectContainer);
   const todoForm = projectContainer.appendChild(document.createElement('form'));
@@ -138,7 +138,7 @@ function displayTodoForm() {
   cancelTodoBtn.addEventListener('click', displayProjects);
 }
 
-function displayTodos() {
+const displayTodos = () => {
   const selectedProjectId = localStorage.getItem('selectedProjectId');
   const projects = getProjects();
   const project = projects.find((element) => element.id === selectedProjectId);
@@ -246,7 +246,7 @@ function displayTodos() {
   }
 }
 
-function start() {
+const start = () => {
   clearContent(container);
   displayNav();
   const mainContent = container.appendChild(document.createElement('div'));
