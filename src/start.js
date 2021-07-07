@@ -6,29 +6,29 @@ import {
   Todo, createTodo, removeTodo, updateStatus,
 } from './task';
 
-const container = document.getElementById('content');
-
 const predefinedProjects = [new Project('Default'), new Project('Yesterday'), new Project('Today'), new Project('Tomorrow')];
-const getProjects = () => {
-  if (localStorage.getItem('toDoProjects')) {
-    const projects = JSON.parse(localStorage.getItem('toDoProjects'));
-    for (let i = 0; i < projects.length; i += 1) {
-      Object.setPrototypeOf(projects[i], Project.prototype);
-      const todoList = projects[i].todos;
-      for (let i = 0; i < todoList.length; i += 1) {
-        Object.setPrototypeOf(todoList[i], Todo.prototype);
+function getProjects() {
+  if (typeof window === 'object') {
+    if (localStorage.getItem('toDoProjects')) {
+      const projects = JSON.parse(localStorage.getItem('toDoProjects'));
+      for (let i = 0; i < projects.length; i += 1) {
+        Object.setPrototypeOf(projects[i], Project.prototype);
+        const todoList = projects[i].todos;
+        for (let i = 0; i < todoList.length; i += 1) {
+          Object.setPrototypeOf(todoList[i], Todo.prototype);
+        }
       }
+      return projects;
     }
-    return projects;
   }
   return predefinedProjects;
-};
+}
 
-const clearContent = (element) => {
+function clearContent(element) {
   element.textContent = '';
-};
+}
 
-const displayProjects = () => {
+function displayProjects() {
   const projectsList = document.querySelector('.project-list');
   clearContent(projectsList);
   let selectedProjectId = localStorage.getItem('selectedProjectId');
@@ -48,9 +48,9 @@ const displayProjects = () => {
   });
   // eslint-disable-next-line no-use-before-define
   displayTodos(selectedProjectId);
-};
+}
 
-const displayTodoForm = () => {
+function displayTodoForm() {
   const projectContainer = document.querySelector('.project-container');
   clearContent(projectContainer);
   const todoForm = projectContainer.appendChild(document.createElement('form'));
@@ -136,9 +136,9 @@ const displayTodoForm = () => {
   cancelTodoBtn.setAttribute('class', 'btn btn-danger cancel-todo');
   cancelTodoBtn.innerHTML = 'Cancel';
   cancelTodoBtn.addEventListener('click', displayProjects);
-};
+}
 
-const displayTodos = () => {
+function displayTodos() {
   const selectedProjectId = localStorage.getItem('selectedProjectId');
   const projects = getProjects();
   const project = projects.find((element) => element.id === selectedProjectId);
@@ -244,9 +244,9 @@ const displayTodos = () => {
       }
     });
   }
-};
+}
 
-const start = () => {
+function start(container) {
   clearContent(container);
   displayNav();
   const mainContent = container.appendChild(document.createElement('div'));
@@ -286,9 +286,9 @@ const start = () => {
   });
 
   displayProjects();
-};
+}
 
-const displayProjectForm = () => {
+function displayProjectForm() {
   const formContainer = document.querySelector('.form-container');
   clearContent(formContainer);
 
@@ -330,6 +330,6 @@ const displayProjectForm = () => {
   submitBtn.addEventListener('click', () => {
     project.createProject(nameInput);
   });
-};
+}
 
 export { start, getProjects };

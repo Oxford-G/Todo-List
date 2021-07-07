@@ -1,4 +1,3 @@
-const start = require('../src/start');
 const todo = require('../src/task');
 const project = require('../src/project');
 
@@ -11,22 +10,7 @@ describe('updateTodo', () => {
   });
 });
 
-const projects = start.getProjects();
 const projectExample = new project.Project('projectExample');
 
 const todoExample2 = new todo.Todo('title3', 'May3rd, 2021', 'description3', 'medium');
 projectExample.todos.push(todoExample2, todoExample1);
-
-describe('removeTodo', () => {
-  it('It should remove a todo', () => {
-    todo.removeTodo(projects, projectExample, projectExample.todos[0].id);
-    expect(projectExample.todos.length).toEqual(1);
-  });
-});
-
-describe('updateStatus', () => {
-  it('It should update a status', () => {
-    todo.updateStatus(projects, projectExample, projectExample.todos[0].id);
-    expect(projectExample.todos[0].status).toEqual(true);
-  });
-});

@@ -10,7 +10,7 @@ class Project {
 }
 
 const projectModule = (() => {
-  const createProject = (target) => {
+  function createProject(target) {
     const projects = getProjects();
     const targetValue = target.value.toLowerCase();
     const invalidName = projects.find((element) => element.name.toLowerCase() === targetValue);
@@ -23,15 +23,15 @@ const projectModule = (() => {
       start();
     }
     target.value = '';
-  };
+  }
 
   return { createProject };
 })();
 
-const removeProject = (projects, project) => {
+function removeProject(projects, project) {
   projects = projects.filter((element) => element.id !== project.id);
   localStorage.toDoProjects = JSON.stringify(projects);
-};
+}
 
 export default projectModule;
 export { Project, projectModule, removeProject };
