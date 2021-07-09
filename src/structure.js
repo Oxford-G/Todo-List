@@ -15,7 +15,7 @@ function displayFooter() {
   footer.setAttribute('class', 'bg-primary');
   const authors = footer.appendChild(document.createElement('p'));
   authors.setAttribute('class', 'text-center text-light my-auto');
-  authors.innerHTML = 'Copyright 2021  Kene && John';
+  authors.innerHTML = 'Copyright 2021  Oxford';
 }
 
 export { displayNav, displayFooter };

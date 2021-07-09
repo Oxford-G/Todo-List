@@ -8,18 +8,16 @@ import {
 
 const predefinedProjects = [new Project('Default'), new Project('Yesterday'), new Project('Today'), new Project('Tomorrow')];
 function getProjects() {
-  if (typeof window === 'object') {
-    if (localStorage.getItem('toDoProjects')) {
-      const projects = JSON.parse(localStorage.getItem('toDoProjects'));
-      for (let i = 0; i < projects.length; i += 1) {
-        Object.setPrototypeOf(projects[i], Project.prototype);
-        const todoList = projects[i].todos;
-        for (let i = 0; i < todoList.length; i += 1) {
-          Object.setPrototypeOf(todoList[i], Todo.prototype);
-        }
+  if (localStorage.getItem('toDoProjects')) {
+    const projects = JSON.parse(localStorage.getItem('toDoProjects'));
+    for (let i = 0; i < projects.length; i += 1) {
+      Object.setPrototypeOf(projects[i], Project.prototype);
+      const todoList = projects[i].todos;
+      for (let i = 0; i < todoList.length; i += 1) {
+        Object.setPrototypeOf(todoList[i], Todo.prototype);
       }
-      return projects;
     }
+    return projects;
   }
   return predefinedProjects;
 }

@@ -1,6 +1,8 @@
 // eslint-disable-next-line import/no-cycle
 import { getProjects, start } from './start';
 
+const container = document.getElementById('content');
+
 class Project {
   constructor(name) {
     this.name = name;
@@ -20,7 +22,7 @@ const projectModule = (() => {
       projects.push(newProject);
       localStorage.toDoProjects = JSON.stringify(projects);
 
-      start();
+      start(container);
     }
     target.value = '';
   }
