@@ -1,3 +1,6 @@
+/**
+* @jest-environment jsdom
+*/ 
 const initStart = require('../src/start');
 const project = require('../src/project');
 

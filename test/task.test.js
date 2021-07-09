@@ -1,3 +1,6 @@
+/**
+* @jest-environment jsdom
+*/ 
 const start = require('../src/start');
 const todo = require('../src/task');
 const project = require('../src/project');
