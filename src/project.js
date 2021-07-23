@@ -1,6 +1,8 @@
 // eslint-disable-next-line import/no-cycle
 import { getProjects, start } from './start';
 
+const container = document.getElementById('content');
+
 class Project {
   constructor(name) {
     this.name = name;
@@ -10,7 +12,7 @@ class Project {
 }
 
 const projectModule = (() => {
-  const createProject = (target) => {
+  function createProject(target) {
     const projects = getProjects();
     const targetValue = target.value.toLowerCase();
     const invalidName = projects.find((element) => element.name.toLowerCase() === targetValue);
@@ -20,18 +22,18 @@ const projectModule = (() => {
       projects.push(newProject);
       localStorage.toDoProjects = JSON.stringify(projects);
 
-      start();
+      start(container);
     }
     target.value = '';
-  };
+  }
 
   return { createProject };
 })();
 
-const removeProject = (projects, project) => {
+function removeProject(projects, project) {
   projects = projects.filter((element) => element.id !== project.id);
   localStorage.toDoProjects = JSON.stringify(projects);
-};
+}
 
 export default projectModule;
 export { Project, projectModule, removeProject };
